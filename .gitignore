@@ -1,1 +1,7 @@
 .idea/
+node_modules/
+.env
+dist/
+AboutMeBotServer.pem
+
+
