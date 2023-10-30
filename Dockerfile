@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+CMD ["npx", "ts-node", "src/index.ts"]
