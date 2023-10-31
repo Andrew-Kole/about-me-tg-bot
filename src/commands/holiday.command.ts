@@ -4,7 +4,7 @@ import { flags } from "../config/flags";
 
 export const holidayCommand = async (ctx: Context) => {
     const message = 'Choose country which holidays do want to know about';
-    const traceId: number = ctx.message.message_id;
+    const traceId: number = ctx.update.update_id;
     logger.info({ traceId }, 'Command holiday was executed.');
     const keyboard = {
         keyboard: flags.map(flag => [flag]),
