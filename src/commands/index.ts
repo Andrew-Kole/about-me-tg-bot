@@ -3,3 +3,4 @@
  */
 export * from './about.command';
 export * from './links.command';
+export * from './holiday.command';
