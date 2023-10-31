@@ -1,6 +1,10 @@
 import { fetchHolidays } from "../services/holiday.client";
 import logger from "../logger";
 
+/**
+ * Handler that reacts on click the flag
+ * @param ctx - telegraf context
+ */
 export async function holidayListener(ctx){
     const traceId = ctx.update.update_id;
     const countryCode = ctx.message.text.split(' ')[0].toUpperCase();
