@@ -1,5 +1,6 @@
-import { fetchWeather } from "../services/weather.client";
-import logger from "../logger";
+import { fetchWeather } from "../../services/weather.client";
+import logger from "../../logger";
+import { weatherReplyPrepare, randomMessageDetected, dateDetectedReply } from "../../config/messages";
 
 /**
  * Handler that reacts on messages and locations
@@ -11,20 +12,21 @@ export async function weatherListener(ctx){
         const hasDate = ctx.message.text.match(/\b\d{4}-\d{2}-\d{2}\b/);
         if (hasDate){
             logger.info({traceId}, 'new date provided')
-            ctx.replyWithHTML('I saw you interested in this <b>date</b>, give me location and I could tell you weather there that time, <s>but after research i discovered it is paid information and i will tell you current weather</s>', {parse_mode: 'HTML'});
+            ctx.replyWithHTML(dateDetectedReply, {parse_mode: 'HTML'});
         }
         else {
             logger.info({traceId}, 'just random message provided.')
-            ctx.replyWithHTML('<i> also think so</i>')
+            ctx.replyWithHTML(randomMessageDetected, {parse_mode: 'HTML'})
         }
     }
     else if(ctx.message.location){
         const latitude = ctx.message.location.latitude;
         const longitude = ctx.message.location.longitude;
         try {
-            const weatherMessage = await fetchWeather(latitude, longitude, traceId)
+            const weatherData = await fetchWeather(latitude, longitude, traceId)
+            const weatherMessage = weatherReplyPrepare(weatherData);
             logger.info({weatherMessage, traceId }, 'Got weather');
-            ctx.replyWithHTML(weatherMessage)
+            ctx.replyWithHTML(weatherMessage, {parse_mode: 'HTML'})
         }
         catch (error) {
             logger.error({error, traceId});

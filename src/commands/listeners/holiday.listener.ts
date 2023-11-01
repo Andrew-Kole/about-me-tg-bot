@@ -1,5 +1,5 @@
-import { fetchHolidays } from "../services/holiday.client";
-import logger from "../logger";
+import { fetchHolidays } from "../../services/holiday.client";
+import logger from "../../logger";
 
 /**
  * Handler that reacts on click the flag

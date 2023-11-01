@@ -20,9 +20,8 @@ export const fetchWeather = async (latitude, longitude, traceId) => {
     try {
         const res = await axios.get(apiUrl, params);
         const weatherData = res.data;
-        const message = `<s>I don't know what to say</s>, so <u>I'll tell you weather</u>. So:\n<i>${weatherData.weather[0].description}</i>\nTemperature:<pre style="background-color: #f2f2f2; padding: 10px; border-radius: 5px;">${Math.round(weatherData.main.temp - 273.15)}°C</pre>`;
-        logger.info({ message, traceId}, 'Weather got');
-        return message;
+        logger.info({ weatherData, traceId}, 'Weather got');
+        return weatherData;
     }
     catch (error) {
         logger.error({error, traceId}, 'Error get weather');

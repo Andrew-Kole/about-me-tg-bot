@@ -3,8 +3,8 @@ import { TELEGRAM_BOT_TOKEN } from "./config";
 import {aboutCommand, holidayCommand, linksCommand} from "./commands";
 import logger from "./logger";
 import {flags} from "./config/flags";
-import {holidayListener} from "./controllers/holiday.listener";
-import {weatherListener} from "./controllers/weather.listener";
+import {holidayListener} from "./commands/listeners/holiday.listener";
+import {weatherListener} from "./commands/listeners/weather.listener";
 
 /**
  * Bot instance.
