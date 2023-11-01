@@ -2,6 +2,11 @@ import axios from "axios";
 import { ABSTRACT_API_KEY } from "../config";
 import logger from "../logger";
 
+/**
+ * Makes request to holiday api and returns holiday and country
+ * @param countryCode - code of the country
+ * @param traceId - for logging
+ */
 export const fetchHolidays = async (countryCode: string, traceId: string) => {
     const apiUrl = `https://holidays.abstractapi.com/v1/`
     const currentDate = new Date();

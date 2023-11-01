@@ -2,6 +2,10 @@ import {Context} from "telegraf";
 import logger from "../logger";
 import { flags } from "../config/flags";
 
+/**
+ * this command executes holiday command that shows holidays in chosen location
+ * @param ctx - telegraf context
+ */
 export const holidayCommand = async (ctx: Context) => {
     const message = 'Choose country which holidays do want to know about';
     const traceId: number = ctx.update.update_id;

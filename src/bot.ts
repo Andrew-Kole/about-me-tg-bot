@@ -3,7 +3,8 @@ import { TELEGRAM_BOT_TOKEN } from "./config";
 import {aboutCommand, holidayCommand, linksCommand} from "./commands";
 import logger from "./logger";
 import {flags} from "./config/flags";
-import {holidayListener} from "./controllers/holiday.listener";
+import {holidayListener} from "./commands/listeners/holiday.listener";
+import {weatherListener} from "./commands/listeners/weather.listener";
 
 /**
  * Bot instance.
@@ -23,7 +24,7 @@ bot.start((ctx) => {
  * Help command.
  */
 bot.help((ctx) => {
-    const helpMessage = "'/about' - provides some information about me\n'/links' - provides my profile links on GitHub and LinkedIn\n'/holiday' - shows selectable flags of the countries, after select one of them you'll get information about holidays in chosen country";
+    const helpMessage = "'/about' - provides some information about me\n'/links' - provides my profile links on GitHub and LinkedIn\n'/holiday' - shows selectable flags of the countries, after select one of them you'll get information about holidays in chosen country\nIf you send me location you'll got information about weather in this location";
     logger.info('Help command executed.')
     ctx.reply(`List of commands:\n${helpMessage}`);
 });
@@ -36,5 +37,6 @@ bot.command('links', linksCommand);
 bot.command('holiday', holidayCommand);
 
 bot.hears(flags, holidayListener);
+bot.on('message', weatherListener);
 
 export default bot;
