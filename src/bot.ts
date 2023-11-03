@@ -1,15 +1,20 @@
-import { Telegraf} from "telegraf";
+import {Scenes, session, Telegraf} from "telegraf";
 import { TELEGRAM_BOT_TOKEN } from "./config";
 import {aboutCommand, holidayCommand, linksCommand} from "./commands";
 import logger from "./logger";
 import {flags} from "./config/flags";
 import {holidayListener} from "./commands/listeners/holiday.listener";
 import {weatherListener} from "./commands/listeners/weather.listener";
+import {subscribeCommand} from "./commands/subscribe.command";
+import subscribeScene from "./commands/scenes/subscribe.scene";
 
 /**
  * Bot instance.
  */
 const bot = new Telegraf(TELEGRAM_BOT_TOKEN);
+const stage = new Scenes.Stage([subscribeScene])
+bot.use(session());
+bot.use(stage.middleware());
 
 /**
  * Start command.
@@ -35,6 +40,8 @@ bot.help((ctx) => {
 bot.command('about', aboutCommand);
 bot.command('links', linksCommand);
 bot.command('holiday', holidayCommand);
+bot.command('subscribe', subscribeCommand);
+
 
 bot.hears(flags, holidayListener);
 bot.on('message', weatherListener);
